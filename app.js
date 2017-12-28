@@ -5,8 +5,23 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+//var mongo = require('mongodb');
+//var mongoose = require('mongoose');
+//
+//var mongoDB = 'mongodb://localhost:27017/coin';
+//
+//mongoose.connect(mongoDB, {
+//	useMongoClient: true
+//});
+//
+//mongoose.Promise = global.Promise;
+//
+//var db = mongoose.connection;
+//
+//db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
 var index = require('./routes/index');
-var users = require('./routes/users');
+var players = require('./routes/players');
 
 var app = express();
 
@@ -22,8 +37,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//// Make our db accessible to our router
+//app.use(function(req,res,next){
+//	req.db = db;
+//	next();
+//});
+
 app.use('/', index);
-app.use('/users', users);
+app.use('/players', players);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
